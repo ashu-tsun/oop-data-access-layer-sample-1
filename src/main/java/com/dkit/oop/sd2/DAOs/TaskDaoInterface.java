@@ -19,15 +19,14 @@ package com.dkit.oop.sd2.DAOs;
  * can be replaced by mock DAO objects.
  */
 
-import com.dkit.oop.sd2.DTOs.User;
+import com.dkit.oop.sd2.DTOs.Task;
 import com.dkit.oop.sd2.Exceptions.DaoException;
 import java.util.List;
 
-public interface UserDaoInterface
+public interface TaskDaoInterface
 {
-    public List<User> findAllUsers() throws DaoException;
+    public List<Task> findAllTasks() throws DaoException;
 
-    public User findUserByUsernamePassword(String username, String password) throws DaoException;
 
 }
 

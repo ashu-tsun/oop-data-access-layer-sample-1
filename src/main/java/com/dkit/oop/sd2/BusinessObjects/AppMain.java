@@ -18,9 +18,9 @@ package com.dkit.oop.sd2.BusinessObjects;
  * to create the required MySQL user_database and User table.
  */
 
-import com.dkit.oop.sd2.DAOs.MySqlUserDao;
-import com.dkit.oop.sd2.DAOs.UserDaoInterface;
-import com.dkit.oop.sd2.DTOs.User;
+import com.dkit.oop.sd2.DAOs.MySqlTasksDao;
+import com.dkit.oop.sd2.DAOs.TaskDaoInterface;
+import com.dkit.oop.sd2.DTOs.Task;
 import com.dkit.oop.sd2.Exceptions.DaoException;
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class AppMain
 {
     public static void main(String[] args)
     {
-        UserDaoInterface IUserDao = new MySqlUserDao();  //"IUserDao" -> "I" stands for Interface
+        TaskDaoInterface ITaskDao = new MySqlTasksDao();  //"IUserDao" -> "I" stands for Interface
 
         /// Notice that the userDao reference is an Interface type.
         /// This allows for the use of different concrete implementations.
@@ -49,39 +49,15 @@ public class AppMain
 
         try
         {
-            System.out.println("\nCall findAllUsers()");
-            List<User> users = IUserDao.findAllUsers();     // call a method in the DAO
+            System.out.println("\nCall findAllTasks()");
+            List<Task> tasks = ITaskDao.findAllTasks();     // call a method in the DAO
 
-            if( users.isEmpty() )
-                System.out.println("There are no Users");
+            if( tasks.isEmpty() )
+                System.out.println("There are no Tasks");
             else {
-                for (User user : users)
-                    System.out.println("User: " + user.toString());
+                for (Task t: tasks)
+                    System.out.println("Task: " + t.toString());
             }
-
-            // test dao with a username and password that we know are present in the database
-            // (Use phpMyAdmin to check that the database has a row with this data)
-            System.out.println("\nCall: findUserByUsernamePassword()");
-            String username = "smithj";
-            String password = "password";
-
-            User user = IUserDao.findUserByUsernamePassword(username, password);
-
-            if( user != null ) // null returned if userid and password not valid
-                System.out.println("User found: " + user);
-            else
-                System.out.println("Username with that password not found");
-
-            // test dao - with an invalid username (i.e. row not in database)
-            username = "madmax";
-            password = "thunderdome";
-
-            user = IUserDao.findUserByUsernamePassword(username, password);
-
-            if(user != null)
-                System.out.println("Username: " + username + " was found: " + user);
-            else
-                System.out.println("Username: " + username + ", password: " + password +" : NO match found");
         }
         catch( DaoException e )
         {
